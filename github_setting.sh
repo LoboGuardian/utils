@@ -50,7 +50,7 @@ fi
 
 # Verificamos si el correo electrónico ya está configurado
 if ! git config --global user.email > /dev/null; then
-  read -p "Ingrese su correo electrónico: " email
+  #read -p "Ingrese su correo electrónico: " email
   git config --global user.email "$email"
 else
   echo "El correo electrónico ya está configurado como:"
