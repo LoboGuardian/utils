@@ -39,6 +39,24 @@ EOF
   sleep 5
 fi
 
+# Verificamos si el nombre de usuario ya está configurado
+if ! git config --global user.name > /dev/null; then
+  read -p "Ingrese su nombre de usuario: " username
+  git config --global user.name "$username"
+else
+  echo "El nombre de usuario ya está configurado como:"
+  echo "$(git config --global user.name)"
+fi
+
+# Verificamos si el correo electrónico ya está configurado
+if ! git config --global user.email > /dev/null; then
+  read -p "Ingrese su correo electrónico: " email
+  git config --global user.email "$email"
+else
+  echo "El correo electrónico ya está configurado como:"
+  echo "$(git config --global user.email)"
+fi
+
 # Testing if local key works
 echo "Testing if local key works"
 ssh -T git@github.com
