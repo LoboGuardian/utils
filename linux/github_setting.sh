@@ -16,7 +16,8 @@ else
   echo "Por favor copiela en el siguiente enlace"
   echo "https://github.com/settings/ssh/new"
   cat ~/.ssh/id_ed25519.pub
-  sleep 5
+  printf "%s " "Press enter to continue"
+  read ans
 fi
 
 # Verificamos si ya existe el archivo .ssh/config
