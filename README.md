@@ -34,8 +34,6 @@ utils/
 
 **scripts/**: A directory dedicated to all scripts and configurations. This allows for easy location of scripts according to their purpose.
 
-**rocky_linux/**: A specific directory for scripts and guides related only to Rocky Linux, keeping everything organized and separate from other general scripts.
-
 ## Getting Started
 To use the scripts in this repository:
 
