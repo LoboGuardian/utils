@@ -3,7 +3,11 @@
 # Verificamos si ya existe el archivo id_ed25519.pub
 if [ -f ~/.ssh/id_ed25519.pub ]; then
   echo "El archivo id_ed25519.pub ya existe."
-  echo " Saltando la generación de la clave SSH."
+  echo "Tu clave pública es:"
+  cat ~/.ssh/id_ed25519.pub
+  echo "Por favor copiela en el siguiente enlace"                                                                                                                                                              echo "https://github.com/settings/ssh/new"                                                                                                                                                                   cat ~/.ssh/id_ed25519.pub                                                                                                                                                                                    printf "%s " "Press enter to continue"                                                                                                                                                                       read ans
+  # echo " Saltando la generación de la clave SSH."
+
 else
   # Pedimos al usuario que ingrese el correo electrónico
   read -p "Ingrese su correo electrónico: " email
@@ -12,7 +16,7 @@ else
   ssh-keygen -t ed25519 -C "$email"
 
   # Imprimimos la clave pública
-  echo "Clave publica"
+  echo "Tu clave pública es:"
   echo "Por favor copiela en el siguiente enlace"
   echo "https://github.com/settings/ssh/new"
   cat ~/.ssh/id_ed25519.pub
