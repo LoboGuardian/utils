@@ -1,15 +1,15 @@
 @echo off
-title Confirmación de Ejecución
+title Execution Confirmation
 
 echo.
-echo ¿Deseas continuar con la ejecución del script? (s/n)
-choice /c yn /m "Presiona S para continuar o N para cancelar."
+echo Do you want to continue running the script? (y/n)
+choice /c yn /m "Press Y to continue or N to cancel."
 
 if %errorlevel% equ 1 goto :fin
 
-:: Aquí va el resto de tu script
-md ..\Archivos_MP4_Movidos
-for /r %%a in (*.mp4) do move "%%a" ..\Archivos_MP4_Movidos
+:: The rest of your script goes here
+md ..\MP4_Files_Moved
+for /r %%a in (*.mp4) do move "%%a" ..\MP4_Files_Moved
 
 :fin
-echo Script finalizado.
+echo Script finished.

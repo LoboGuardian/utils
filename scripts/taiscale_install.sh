@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Descarga e instala Tailscale
+# Download and install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
-# Agrega tus comandos personalizados aquí, por ejemplo:
+# Add your custom commands here, for example:
 tailscale up
 tailscale login
 
-# Mensaje de finalización
-echo "Instalación de Tailscale completada."
+# Completion message
+echo "Tailscale installation complete."

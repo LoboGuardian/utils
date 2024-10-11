@@ -1,31 +1,31 @@
 #!/bin/bash
 
-# Verificamos si ya existe el archivo id_ed25519.pub
+# Check if the file id_ed25519.pub already exists
 if [ -f ~/.ssh/id_ed25519.pub ]; then
-  echo "El archivo id_ed25519.pub ya existe."
-  echo " Saltando la generación de la clave SSH."
+  echo "The file id_ed25519.pub already exists."
+  echo "Skipping SSH key generation."
 else
-  # Pedimos al usuario que ingrese el correo electrónico
-  read -p "Ingrese su correo electrónico: " email
+  # Ask the user to enter the email
+  read -p "Enter your email: " email
 
-  # Generamos la clave SSH y configuramos el archivo config
+  # Generate the SSH key and configure the config file
   ssh-keygen -t ed25519 -C "$email"
 
-  # Imprimimos la clave pública
-  echo "Clave publica"
-  echo "Por favor copiela en el siguiente enlace"
+  # Print the public key
+  echo "Public key"
+  echo "Please copy it to the following link"
   echo "https://github.com/settings/ssh/new"
   cat ~/.ssh/id_ed25519.pub
   printf "%s " "Press enter to continue"
   read ans
 fi
 
-# Verificamos si ya existe el archivo .ssh/config
+# Check if the .ssh/config file already exists
 if [ -f ~/.ssh/config ]; then
-  echo "El archivo .ssh/config ya existe."
-  echo " Saltando la configuración del archivo config."
+  echo "The .ssh/config file already exists."
+  echo "Skipping config file configuration."
 else
-  # Obtenemos el hostname del equipo
+  # Get the hostname of the computer
   hostname=$(hostname)
 
   touch ~/.ssh/config
@@ -40,21 +40,21 @@ EOF
   sleep 5
 fi
 
-# Verificamos si el nombre de usuario ya está configurado
+# Check if the username is already set
 if ! git config --global user.name > /dev/null; then
-  read -p "Ingrese su nombre de usuario: " username
+  read -p "Enter your username: " username
   git config --global user.name "$username"
 else
-  echo "El nombre de usuario ya está configurado como:"
+  echo "The username is already set to:"
   echo "$(git config --global user.name)"
 fi
 
-# Verificamos si el correo electrónico ya está configurado
+# Check if the email is already configureds
 if ! git config --global user.email > /dev/null; then
-  #read -p "Ingrese su correo electrónico: " email
+  #read -p "Enter your email: " email
   git config --global user.email "$email"
 else
-  echo "El correo electrónico ya está configurado como:"
+  echo "The email is already configured as:"
   echo "$(git config --global user.email)"
 fi
 
@@ -66,14 +66,14 @@ ssh -T git@github.com
 echo "Agen forwading show "
 echo "$SSH_AUTH_SOCK"
 
-# Preguntamos si el usuario desea clonar un repositorio
-read -p "¿Desea clonar algún repositorio? (Y/n): " clone_repo
+# Ask if the user wants to clone a repository
+read -p "Do you want to clone any repository? (Y/n): " clone_repo
 
 if [ "$clone_repo" = "Y" ]; then
-  # Pedimos al usuario que ingrese el owner y el repo
-  read -p "Ingrese el owner del repositorio: " owner
-  read -p "Ingrese el nombre del repositorio: " repo
+  # We ask the user to enter the owner and the repo
+  read -p "Enter the owner of the repository: " owner
+  read -p "Enter the name of the repository: " repo
 
-  # Clonamos el repositorio
+  # We clone the repository
   git clone git@github.com:$owner/$repo.git
 fi
