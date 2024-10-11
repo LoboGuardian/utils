@@ -3,9 +3,13 @@
 # Check if the file id_ed25519.pub already exists
 if [ -f ~/.ssh/id_ed25519.pub ]; then
   echo "The file id_ed25519.pub already exists."
-  echo "Tu clave pública es:"
+  echo "Your public key is:"
   cat ~/.ssh/id_ed25519.pub
-  echo "Por favor copiela en el siguiente enlace"                                                                                                                                                              echo "https://github.com/settings/ssh/new"                                                                                                                                                                   cat ~/.ssh/id_ed25519.pub                                                                                                                                                                                    printf "%s " "Press enter to continue"                                                                                                                                                                       read ans
+  echo "Please copy it to the following link"
+  echo "https://github.com/settings/ssh/new"
+  cat ~/.ssh/id_ed25519.pub
+  printf "%s " "Press enter to continue"
+  read ans
   # echo "Skipping SSH key generation."
 
 else
@@ -15,9 +19,9 @@ else
   # Generate the SSH key and configure the config file
   ssh-keygen -t ed25519 -C "$email"
 
-  # Imprimimos la clave pública
-  echo "Clave publica"
-  echo "Por favor copiela en el siguiente enlace"
+  # Print the public key
+  echo "Public key"
+  echo "Please copy it to the following link"
   echo "https://github.com/settings/ssh/new"
   cat ~/.ssh/id_ed25519.pub
   printf "%s " "Press enter to continue"
