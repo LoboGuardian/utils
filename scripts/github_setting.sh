@@ -71,7 +71,7 @@ echo "Testing if local key works"
 ssh -T git@github.com
 
 # Testing SSH Agent forwading
-echo "Agen forwading show "
+echo "Agent forwading show "
 echo "$SSH_AUTH_SOCK"
 
 # Ask if the user wants to clone a repository
