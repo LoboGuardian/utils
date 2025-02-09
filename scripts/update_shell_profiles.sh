@@ -33,7 +33,48 @@ unset rc
 # Custom Git clone function
 # Usage: gitc <repository-name> to clone a GitHub repository using SSH
 gitc() {
-    git clone git@github.com:$1.git;  # Clones the specified repository from GitHub
+  local repo="$1"
+  local url=""
+
+  # 1. Handle missing repository name
+  if [ -z "$repo" ]; then
+    echo "Usage: gitc <repository-name>"
+    return 1  # Indicate an error
+  fi
+
+  # 2. Check for valid repository name format (user/repo)  
+  if [[ "$repo" != */* ]]; then
+    echo "Invalid repository name format. Use user/repo."
+    return 1
+  fi
+
+  # 3. Determine URL based on protocol preference (HTTPS or SSH)
+  if [[ "$USE_HTTPS" == "true" ]]; then  # Environment variable to control protocol
+    url="https://github.com/$repo.git"
+  else
+    url="git@github.com:$repo.git"
+  fi
+
+  # 4. Check if the directory already exists
+  local repo_name=$(basename "$repo") # Extract repo name
+  if [ -d "$repo_name" ]; then
+    echo "Directory '$repo_name' already exists. Skipping clone."
+    return 1
+  fi
+
+  # 5. Clone the repository with improved output and error handling
+  echo "Cloning $repo to $repo_name..."
+  if git clone "$url" "$repo_name"; then  # Clone into a directory named after the repo
+    echo "Successfully cloned $repo."
+  else
+    echo "Error cloning $repo. Check your connection and repository name."
+    return 1
+  fi
+
+  # 6. (Optional) Navigate into the cloned directory
+  if [[ "$AUTO_CD" == "true" ]]; then # Environment variable to control auto-cd
+    cd "$repo_name"
+  fi
 }
 
 # Alias to list Pipenv virtual environments and their associated projects
